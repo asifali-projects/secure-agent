@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "secure-agent"
+version = "0.1.0"
+description = "Production-oriented secure AI agent"
+requires-python = ">=3.11,<3.14"
+
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.34,<1",
+    "pydantic>=2.10,<3",
+    "pydantic-settings>=2.7,<3",
+
+    "PyJWT>=2.10,<3",
+    "email-validator>=2.2,<3",
+
+    "httpx>=0.28,<1",
+    "redis>=5,<7",
+    "qdrant-client>=1.13,<2",
+
+    "langchain-core>=0.3,<1",
+
+    "nemoguardrails>=0.14,<1",
+
+    "python-multipart>=0.0.20,<1",
+    "orjson>=3.10,<4",
+    "tenacity>=9,<10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<9",
+    "pytest-asyncio>=0.25,<1",
+    "pytest-cov>=6,<7",
+    "ruff>=0.11,<1",
+    "mypy>=1.15,<2",
+]
+
+security = [
+    "bandit>=1.8,<2",
+    "pip-audit>=2.8,<3",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-ra -q"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "B",
+    "UP",
+]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["app"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80
